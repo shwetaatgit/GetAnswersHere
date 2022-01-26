@@ -39,3 +39,4 @@ List After adding new question
 Question Detail Page
 ![Detail page](https://user-images.githubusercontent.com/56690927/151129984-58fa847b-a6f0-41cc-b7ca-7326f9b6d7d9.png)
 
+Users can answer the questions. There are features like searching questions according to the tag, adding comments on the questions and answers as well, etc. 
