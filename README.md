@@ -23,8 +23,19 @@ $ VirtEnv\Scripts\activate.bat
 (VirtEnv)$ python manage.py runserver
 ```
 
-Landing Page
-![landing page](https://drive.google.com/file/d/1r4vmPesoG5QTKFUtbiQAyBA7vOSrIJvz/view?usp=sharing)
+## Screenshots
+Home Page
+![Home page](https://user-images.githubusercontent.com/56690927/151129309-458126af-e240-4650-aaf3-f3300f3d707d.png)
 <br>
 <br>
+Add Question
+![Question](https://user-images.githubusercontent.com/56690927/151129648-c1259f8f-2570-4501-9be9-c529ca3ea6fd.png)
+<br>
+<br>
+List After adding new question
+![question added](https://user-images.githubusercontent.com/56690927/151129847-3e328376-616a-465e-a465-8e9a1b5c9f14.png)
+<br>
+<br>
+Question Detail Page
+![Detail page](https://user-images.githubusercontent.com/56690927/151129984-58fa847b-a6f0-41cc-b7ca-7326f9b6d7d9.png)
 
