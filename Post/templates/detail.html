@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>   
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+           $( ".accordion" ).accordion({active: false, collapsible: true});
+        });
+     </script>
+     <style>
+       .box{
+          width: 100%;
+          font-size: small;
+        }
+     </style>
+</head>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 ">
+
+      <div class="card-body">
+        <h3>{% block title %} {{ obj.Que_text }} {% endblock title %}</h3>
+
+        {% if user == obj.Que_author %}
+          <small><a href="{% url 'edit_question' obj.pk  %}">Edit</a></small>
+          <small><a href="{% url 'delete_question' obj.pk  %}">Delete</a></small>
+        {% endif %}
+        <br>
+        <small><b>Tags:</b></small>
+          {% for tag in obj.tags.all %}
+            <a href="#" class="badge badge-success">{{tag}}</a>
+          {% endfor %}<br>
+        <!-- <h6>Total views: {{ total_views }}</h6> -->
+        <small>Views:{{obj.Views.count}} | Comments: {{obj.comments.all.count}} | Answers: {{obj.answers.all.count}}</small><br>
+        <small class=" text-muted">{{ obj.Que_author }} | {{ obj.Que_created_on }}</small>
+      </div>
+      
+      {% if user.is_authenticated %}
+      <form action="{% url 'upvote' obj.pk %}" method="POST">
+        {% csrf_token %}
+        {% if is_up %}
+          <button type="submit", name="question_id", value="{{ question_id }}", class="btn btn-success">Vote</button>
+        {% else %}
+          <button type="submit", name="question_id", value="{{ question_id }}", class="btn btn-outline-success">Vote</button>
+        {% endif %} 
+        {{ total_upvotes }} Votes
+      </form>
+      
+      {% endif %}
+      <br>
+      <div class="accordion">
+            <!-- <h5>Comments.. <br></h5> -->
+            <p>Click here for comments ({{obj.comments.all.count}} Comments)</p>
+            <div class="flex">
+              {% for j in obj.comments.all %}
+                {{ j.comment_text }}
+                {% if user == j.comment_author %}
+                  <small> <a href="{% url 'edit_comment_Q' obj.pk j.pk  %}">edit</a></small>
+                {% endif %}<br>
+                <small class=" text-muted">{{ j.comment_author}}- {{ j.comment_created_on }}</small> <br><hr>
+                
+              {% endfor %}
+                {% if user.is_authenticated %}
+                    <p>Add your Comments</p>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <textarea name="comment_text" cols="20" rows="5" required id="id_comment_text" placeholder="Comment"  class="form-control"></textarea><br>
+                        <button class="btn btn-secondary">Add Comment</button>
+                    </form>
+                {% else %}
+                  <small>Login to add comments</small><br>
+                {% endif %}
+            </div>
+        </div> 
+        <hr>
+         
+      <h4>Answers..</h4>
+      {% if not obj.answers.all %}
+          No answers yet..
+      {% else %}
+          {% for ans in obj.answers.all %}
+            <p>{{ ans.Ans_body }} 
+              {% if user == ans.Ans_author %}
+                <small> <a href="{% url 'edit_answer' obj.pk ans.pk  %}">Edit</a></small>
+              {% endif %}<br>
+            <small class=" text-muted">{{ ans.Ans_author}}- {{ ans.Ans_created_on }}</small></p>
+
+
+
+            <div class="accordion">
+              <p>Comments ({{ans.comments_ans.all.count}})</p>
+              <div>
+              {% if user.is_authenticated %}
+                <small><a href="{% url 'add_comment_A' obj.pk ans.pk  %}">Add ans Comments</a></small>
+              {% else %}
+                <small>Login to add comments</small><br>
+              {% endif %}<br>
+              
+              {% if not ans.comments_ans.all %}
+                  No comments yet..
+              {% else %}
+                {% for k in ans.comments_ans.all %}
+                  <p>{{ k.comment_text }} 
+                    {% if user == k.comment_author %}
+                      <small> <a href="{% url 'edit_comment_Q' obj.pk k.pk  %}">edit</a></small>
+                    {% endif %}<br>
+                  <small class=" text-muted">{{ k.comment_author}}- {{ k.comment_created_on }}</small> </p><hr>
+
+                {% endfor %}
+              {% endif %}
+              </div>
+            </div>
+            <hr>
+          {% endfor %}
+          
+      {% endif %}
+      <hr>
+
+      <h4>Add your Answer here!</h4>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <textarea name="Ans_body" cols="40" rows="10" required id="id_Ans_body" class="form-control" placeholder="Answer"></textarea>
+            <br>
+            <button class="btn btn-secondary">Add Answer</button>
+        </form>
+      
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock content %}

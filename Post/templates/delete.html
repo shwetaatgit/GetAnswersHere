@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .add-comment{
+        padding: 35px;
+    }
+</style>
+
+<div class="add-comment">
+    <h2>Delete Question</h2>
+        <!-- <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary">Add Comment</button>
+        </form> -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ques.Que_text}}
+            <h2>Do you want to delete this question?</h2>
+            <p><input type="submit" value="Yes"/></p>
+            
+        </form>
+</div>
+
+{% endblock %}

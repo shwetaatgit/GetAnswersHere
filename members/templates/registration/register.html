@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<style>
+    .container{
+        padding: 35px;
+        padding-left: 25%;
+        padding-right: 35%;
+    }
+</style>
+
+<div class="container">
+    <h2>Register</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p><input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus required id="id_username" class="form-control" placeholder="Username"></p>
+        <p><input type="password" name="password1" autocomplete="new-password" required id="id_password1" class="form-control" placeholder="Password"></p>
+        <p>Password should have at least 8 characters having special characters and numbers as well.</p>
+        <p><input type="password" name="password2" autocomplete="new-password" required id="id_password2" class="form-control" placeholder="Confirm Password"></p>
+        <button class="btn btn-secondary">Register</button>
+    </form>
+  
+</div>
+
+{% endblock %}

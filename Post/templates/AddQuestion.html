@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .add-question{
+        padding: 50px;
+        padding-left: 50px;
+        padding-right: 10%;
+    }
+</style>
+
+<div class="add-question">
+    <h2>Ask your Question here!</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <textarea name="Que_text" cols="40" rows="10" class="form-control" required id="id_Que_text" placeholder="Question">
+            </textarea><br>
+            <p><label for="id_tags">Tags:</label> <input type="text" name="tags" required id="id_tags"><span class="helptext">
+                A comma-separated list of tags.</span></p>
+            
+            <button class="btn btn-secondary">Add Question</button>
+        </form>
+        
+        <!-- <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary">Add Question</button>
+        </form>
+   -->
+</div>
+
+{% endblock %}
